@@ -13,7 +13,7 @@ import asyncore
 import socket
 
 import json
-
+import sys
 
 
 class StorageHandler( object ):
@@ -206,5 +206,9 @@ def handle( to, sender, body ):
 			
 
 server = HttpServer( '0.0.0.0', 8123, storage )
+
+# Suppress inbox.py's debug messages
+handle = open('/dev/null', 'wb' )
+sys.stderr = handle
 
 inbox.serve(address='0.0.0.0', port=4467)
